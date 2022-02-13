@@ -1,0 +1,58 @@
+<p-card>
+  <ng-template pTemplate="title"> Poliçe Seçimi</ng-template>
+  <ng-template pTemplate="subtitle">
+    Size uygun olduğunu düşündüğünüz poliçeyi seçiniz
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="p-fluid">
+      <!--  -->
+      <div class="field col-2">
+        <table>
+          <tr>
+            <th>Poliçe Kapsamı</th>
+            <th>Fiyat</th>
+          </tr>
+          <tr *ngFor="let post of policies">
+            <td>
+              <p-radioButton
+                name="policies"
+                [required]="true"
+                value="{{ post.title + ',' + post.price }}"
+                label="{{ post.title }}"
+                [(ngModel)]="selectedPolicy.PolicyName"
+                [ngClass]="{
+                  'ng-dirty':
+                    (selectedPolicy.invalid && submitted) ||
+                    (selectedPolicy.dirty && selectedPolicy.invalid)
+                }"
+              ></p-radioButton>
+            </td>
+            <td>
+              {{ post.price }}
+            </td>
+          </tr>
+        </table>
+        <small
+          *ngIf="selectedPolicy.PolicyName == '' && submitted"
+          class="p-error"
+          >İlerlemek için bir poliçe seçmelisiniz
+        </small>
+
+        <br />
+        <br />
+      </div>
+
+      <!--  -->
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="grid grid-nogutter justify-content-end">
+      <p-button
+        label="Sonraki Adım"
+        (onClick)="nextPage()"
+        icon="pi pi-angle-right"
+        iconPos="right"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-card>

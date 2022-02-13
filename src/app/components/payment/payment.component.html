@@ -1,0 +1,178 @@
+<p-card>
+  <ng-template pTemplate="title"> Ödeme Bilgileri </ng-template>
+  <ng-template pTemplate="subtitle">
+    Kredi kartı bilgilerinizi girin
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="p-fluid formgrid grid">
+      <div class="field col-12">
+        <label for="class">Kart Üzerindeki İsim</label>
+        <input
+          #CardHolderFirstNameLastName="ngModel"
+          id="CardHolderFirstNameLastName"
+          type="text"
+          [required]="true"
+          pInputText
+          [(ngModel)]="paymentInformation.CardHolderFirstNameLastName"
+          [disabled]="paymentActive"
+          [ngClass]="{
+            'ng-dirty':
+              (CardHolderFirstNameLastName.invalid && submitted) ||
+              (CardHolderFirstNameLastName.dirty &&
+                CardHolderFirstNameLastName.invalid)
+          }"
+        />
+        <small
+          *ngIf="
+            (CardHolderFirstNameLastName.invalid && submitted) ||
+            (CardHolderFirstNameLastName.dirty &&
+              CardHolderFirstNameLastName.invalid)
+          "
+          class="p-error"
+          >Kredi kartı üzerinde yer alan ismi giriniz</small
+        >
+      </div>
+      <br />
+      <div class="field col-8">
+        <label id="number" for="LastName">Kart Numarası</label>
+        <p-inputMask
+          #CreditCardNumber="ngModel"
+          inputId="number"
+          mask="9999-9999-9999-9999"
+          [(ngModel)]="paymentInformation.CreditCardNumber"
+          [disabled]="paymentActive"
+          [required]="true"
+          [ngClass]="{
+            'ng-dirty':
+              (CreditCardNumber.invalid && submitted) ||
+              (CreditCardNumber.dirty && CreditCardNumber.invalid)
+          }"
+        ></p-inputMask>
+        <small
+          *ngIf="
+            (CreditCardNumber.invalid && submitted) ||
+            (CreditCardNumber.dirty && CreditCardNumber.invalid)
+          "
+          class="p-error"
+          >Kredi kartı numarasını giriniz</small
+        >
+      </div>
+      <br />
+      <div class="field col-2">
+        <label id="date" for="date">Son Kullanma Tarihi</label>
+        <p-inputMask
+          #ValidThru="ngModel"
+          inputId="date"
+          mask="99/99"
+          [required]="true"
+          [(ngModel)]="paymentInformation.ValidThru"
+          [disabled]="paymentActive"
+          [ngClass]="{
+            'ng-dirty':
+              (ValidThru.invalid && submitted) ||
+              (ValidThru.dirty && ValidThru.invalid)
+          }"
+        ></p-inputMask>
+        <small
+          *ngIf="
+            (ValidThru.invalid && submitted) ||
+            (ValidThru.dirty && ValidThru.invalid)
+          "
+          class="p-error"
+          >Kredi kartının son kullanma tarihini giriniz</small
+        >
+      </div>
+      <br />
+      <div class="field col-2">
+        <label for="cvv">CVC Kodu</label>
+        <p-inputMask
+          #CardValidationValue="ngModel"
+          id="cvv"
+          mask="999"
+          [required]="true"
+          [(ngModel)]="paymentInformation.CardValidationValue"
+          [disabled]="paymentActive"
+          [ngClass]="{
+            'ng-dirty':
+              (CardValidationValue.invalid && submitted) ||
+              (CardValidationValue.dirty && CardValidationValue.invalid)
+          }"
+        ></p-inputMask>
+        <small
+          *ngIf="
+            (CardValidationValue.invalid && submitted) ||
+            (CardValidationValue.dirty && CardValidationValue.invalid)
+          "
+          class="p-error"
+          >Kredi kartının arkasındaki güvenlik kodunu giriniz</small
+        >
+      </div>
+      <br />
+      <div class="field col-2">
+        <label for="PaymentType">Ödeme Tipi</label>
+        <br />
+        <p-radioButton
+          name="PaymentType"
+          value="Peşin"
+          [(ngModel)]="paymentInformation.PaymentType"
+          label="Peşin"
+          [disabled]="paymentActive"
+        ></p-radioButton>
+        &nbsp;
+        <p-radioButton
+          name="PaymentType"
+          value="3 Taksit"
+          [(ngModel)]="paymentInformation.PaymentType"
+          label="3 Taksit"
+          [disabled]="paymentActive"
+        ></p-radioButton>
+        &nbsp;
+        <p-radioButton
+          name="PaymentType"
+          value="6 Taksit"
+          [(ngModel)]="paymentInformation.PaymentType"
+          label="6 Taksit"
+          [disabled]="paymentActive"
+        ></p-radioButton>
+      </div>
+      <br />
+      <div class="field col-12">
+        <label for="class">Ödenecek Toplam Tutar</label>
+        <input
+          id="Price"
+          type="text"
+          pInputText
+          [(ngModel)]="orderService.orderInformation.selectedPolicy.PolicyPrice"
+          [readonly]="true"
+        />
+      </div>
+      <br />
+      <div class="field-checkbox col-12">
+        <p-checkbox
+          id="paymentActive"
+          [binary]="true"
+          [(ngModel)]="paymentActive"
+        ></p-checkbox>
+        <label for="paymentActive" class="p-checkbox-label"
+          >Ödeme yapmadan devam et</label
+        >
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="grid grid-nogutter justify-content-between">
+      <p-button
+        label="Önceki Adım"
+        (onClick)="prevPage()"
+        icon="pi pi-angle-left"
+      ></p-button>
+      &nbsp;
+      <p-button
+        label="Sonraki Adım"
+        (onClick)="nextPage()"
+        icon="pi pi-angle-right"
+        iconPos="right"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-card>

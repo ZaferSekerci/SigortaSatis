@@ -1,0 +1,123 @@
+<p-card>
+  <ng-template pTemplate="title"> Doğrulama </ng-template>
+  <ng-template pTemplate="subtitle"> Poliçe Özetiniz </ng-template>
+  <ng-template pTemplate="content">
+    <div class="field col-12">
+      <label for="class">Seçilen Poliçe: </label>
+      <b
+        >{{
+          orderInformation.selectedPolicy.PolicyName
+            ? orderInformation.selectedPolicy.PolicyName
+            : " - "
+        }}
+      </b>
+    </div>
+    <div class="field col-12">
+      <label for="class">Sigortalı Adı: </label>
+      <b
+        >{{
+          orderInformation.personalInformation.FirstName
+            ? orderInformation.personalInformation.FirstName
+            : " - "
+        }}
+        {{
+          orderInformation.personalInformation.LastName
+            ? orderInformation.personalInformation.LastName
+            : " - "
+        }}</b
+      >
+    </div>
+    <div class="field col-12">
+      <label for="class">Telefon Numarası: </label>
+      <b>{{
+        orderInformation.personalInformation.PhoneNumber
+          ? orderInformation.personalInformation.PhoneNumber
+          : " - "
+      }}</b>
+    </div>
+    <div class="field col-12">
+      <label for="class">Şehir: </label>
+      <b>{{
+        orderInformation.personalInformation.City.name
+          ? orderInformation.personalInformation.City.name
+          : " - "
+      }}</b>
+    </div>
+    <div class="field col-12">
+      <label for="class">E-Mail Adresi: </label>
+      <b>{{
+        orderInformation.personalInformation.Email
+          ? orderInformation.personalInformation.Email
+          : " - "
+      }}</b>
+    </div>
+
+    <div class="field col-12">
+      <label for="class">Kart Üzerindeki İsim: </label>
+      <b>{{
+        orderInformation.paymentInformation.CardHolderFirstNameLastName
+          ? orderInformation.paymentInformation.CardHolderFirstNameLastName
+          : " - "
+      }}</b>
+    </div>
+    <div class="field col-12">
+      <label for="class">Kart Numarası: </label>
+      <b>{{
+        orderInformation.paymentInformation.CreditCardNumber
+          ? "**** **** ****" +
+            orderInformation.paymentInformation.CreditCardNumber.slice(14)
+          : " - "
+      }}</b>
+    </div>
+    <div class="field col-12">
+      <label for="class">Son Kullanma Tarihi: </label>
+      <b>{{
+        orderInformation.paymentInformation.ValidThru
+          ? orderInformation.paymentInformation.ValidThru
+          : " - "
+      }}</b>
+    </div>
+    <div class="field col-12">
+      <label for="class">CVC Kodu: </label>
+      <b>{{
+        orderInformation.paymentInformation.CardValidationValue &&
+        orderInformation.paymentInformation.CardValidationValue.length === 3
+          ? "**" + orderInformation.paymentInformation.CardValidationValue[2]
+          : " - "
+      }}</b>
+    </div>
+    <div class="field col-12">
+      <label for="class">Ödeme Tipi: </label>
+      <b>{{
+        orderInformation.paymentInformation.PaymentType
+          ? orderInformation.paymentInformation.PaymentType
+          : " - "
+      }}</b>
+    </div>
+    <div class="field col-12">
+      <label for="class">Toplam Prim Tutarı: </label>
+      <b>{{
+        orderInformation.selectedPolicy.PolicyPrice
+          ? orderInformation.selectedPolicy.PolicyPrice
+          : " - "
+      }}</b>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="grid grid-nogutter justify-content-between">
+      <p-button
+        label="Geri"
+        (onClick)="prevPage()"
+        icon="pi pi-angle-left"
+      ></p-button>
+      &nbsp;
+      <p-button
+        label="Tamamla"
+        (onClick)="complete()"
+        icon="pi pi-angle-right"
+        iconPos="right"
+        styleClass="p-button-success"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-card>

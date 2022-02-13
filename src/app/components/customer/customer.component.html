@@ -1,0 +1,138 @@
+<p-card>
+  <ng-template pTemplate="title"> Sigortalı Bilgileri</ng-template>
+  <ng-template pTemplate="subtitle">
+    Kişisel bilgilerinizi Giriniz
+  </ng-template>
+  <ng-template pTemplate="content">
+    <!--  -->
+    <!--  -->
+    <div class="p-fluid">
+      <div class="field">
+        <label for="FirstName">Adı</label>
+        <input
+          #FirstName="ngModel"
+          id="FirstName"
+          type="text"
+          required
+          pInputText
+          [(ngModel)]="personalInformation.FirstName"
+          [ngClass]="{
+            'ng-dirty':
+              (FirstName.invalid && submitted) ||
+              (FirstName.dirty && FirstName.invalid)
+          }"
+        />
+        <small
+          *ngIf="
+            (FirstName.invalid && submitted) ||
+            (FirstName.dirty && FirstName.invalid)
+          "
+          class="p-error"
+          >Adınızı girmelisiniz</small
+        >
+      </div>
+      <div class="field">
+        <label for="LastName">Soyadı</label>
+        <input
+          #LastName="ngModel"
+          id="LastName"
+          type="text"
+          required
+          pInputText
+          [(ngModel)]="personalInformation.LastName"
+          [ngClass]="{
+            'ng-dirty':
+              (LastName.invalid && submitted) ||
+              (LastName.dirty && LastName.invalid)
+          }"
+        />
+        <small
+          class="p-error"
+          *ngIf="
+            (LastName.invalid && submitted) ||
+            (LastName.dirty && LastName.invalid)
+          "
+          >Soyadınızı girmelisiniz</small
+        >
+      </div>
+      <div class="field">
+        <label for="PhoneNumber">Telefon Numarası</label>
+        <p-inputMask
+          #PhoneNumber="ngModel"
+          inputId="PhoneNumber"
+          mask="(999) 999-99-99"
+          [(ngModel)]="personalInformation.PhoneNumber"
+          [required]="true"
+          [ngClass]="{
+            'ng-dirty':
+              (PhoneNumber.invalid && submitted) ||
+              (PhoneNumber.dirty && PhoneNumber.invalid)
+          }"
+        ></p-inputMask>
+        <small class="p-error" *ngIf="submitted && PhoneNumber.invalid"
+          >Telefon numaranızı girmelisiniz</small
+        >
+      </div>
+      <div class="field">
+        <label for="City">Şehir</label>
+        <p-dropdown
+          #City="ngModel"
+          [options]="cities"
+          [(ngModel)]="personalInformation.City"
+          placeholder="Şehir Seçiniz"
+          optionLabel="name"
+          [required]="true"
+          [showClear]="true"
+          [ngClass]="{
+            'ng-dirty':
+              (City.invalid && submitted) || (City.dirty && City.invalid)
+          }"
+        ></p-dropdown>
+        <small class="p-error" *ngIf="submitted && City.invalid"
+          >Şehir bilgisi seçmelisiniz</small
+        >
+      </div>
+      <!-- Canlı email doğrulaması içi bu eleman formgrubu olarak oluşturuldu -->
+      <form [formGroup]="emailForm">
+        <div class="form-group">
+          <label for="Email">Email:</label>
+          <input
+            pInputText
+            [(ngModel)]="personalInformation.Email"
+            type="email"
+            class="form-control"
+            formControlName="Email"
+            [ngClass]="{
+              'ng-dirty': f['Email'].dirty || submitted
+            }"
+          />
+          <small
+            class="p-error"
+            *ngIf="f['Email'].errors?.['required'] && (f['Email'].dirty || submitted)"
+            >E-mail adresi girmelisiniz
+          </small>
+          <small class="p-error" *ngIf="f['Email'].errors?.['pattern']"
+            >Girdiğiniz E-mail adresi geçersizdir
+          </small>
+        </div>
+      </form>
+      <!-- form bitti  -->
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="grid grid-nogutter justify-content-between">
+      <p-button
+        label="Önceki Adım"
+        (onClick)="prevPage()"
+        icon="pi pi-angle-left"
+      ></p-button>
+      &nbsp;
+      <p-button
+        label="Sonraki Adım"
+        (onClick)="nextPage()"
+        icon="pi pi-angle-right"
+        iconPos="right"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-card>
